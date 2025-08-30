@@ -1,0 +1,87 @@
+# Trading Bot Configuration
+# 交易机器人配置文件
+
+# 交易所配置
+exchange:
+  name: "binance"
+  api_key: "${BINANCE_API_KEY}"           # 从环境变量读取API密钥
+  secret_key: "${BINANCE_SECRET_KEY}"     # 从环境变量读取Secret密钥
+  testnet: true                           # 是否使用测试网络（强烈建议先使用测试网）
+  base_url: ""                            # 自定义API URL（留空使用默认）
+
+# 交易配置
+trading:
+  # 交易标的
+  symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+    - "ADAUSDT"
+  
+  # 风险管理参数
+  max_position_size: 1000.0              # 单笔最大仓位大小（USDT）
+  stop_loss_percent: 2.0                 # 止损百分比
+  take_profit_percent: 5.0               # 止盈百分比
+  max_daily_loss: 500.0                  # 每日最大亏损限制（USDT）
+  risk_per_trade_percent: 1.0            # 每笔交易风险百分比
+  
+  # 杠杆和保证金设置
+  max_leverage: 5                        # 最大杠杆倍数
+  min_order_value: 10.0                  # 最小订单价值（USDT）
+  
+  # 交易频率
+  trading_interval_seconds: 60           # 交易信号检查间隔（秒）
+  
+  # 纸上交易模式（建议先开启进行测试）
+  enable_paper_trading: true             # 是否启用纸上交易（不实际下单）
+  
+  # 交易策略配置
+  strategy:
+    type: "simple_moving_average"        # 策略类型: simple_moving_average, rsi, grid
+    enable_signal_filters: true         # 是否启用信号过滤
+    parameters:
+      short_period: 10                  # 短期移动平均线周期
+      long_period: 20                   # 长期移动平均线周期
+      min_confidence: 0.7               # 最小信号置信度
+
+# 数据库配置
+database:
+  # MySQL配置
+  mysql:
+    dsn: "${MYSQL_DSN}"                 # 数据库连接字符串
+    max_open_conns: 25                  # 最大打开连接数
+    max_idle_conns: 5                   # 最大空闲连接数
+    conn_max_lifetime_minutes: 30       # 连接最大生存时间（分钟）
+  
+  # Redis配置
+  redis:
+    addr: "${REDIS_ADDR}"               # Redis地址，例如: localhost:6379
+    password: "${REDIS_PASSWORD}"       # Redis密码（如果有）
+    db: 0                              # Redis数据库编号
+    pool_size: 10                      # 连接池大小
+
+# 日志配置
+logger:
+  level: "info"                         # 日志级别: debug, info, warn, error
+  format: "json"                        # 日志格式: json, text
+  output: "stdout"                      # 日志输出: stdout, file
+
+# 策略特定配置示例
+strategy_configs:
+  # SMA策略配置
+  simple_moving_average:
+    short_period: 10
+    long_period: 20
+    min_confidence: 0.7
+  
+  # RSI策略配置
+  rsi:
+    period: 14
+    oversold: 30
+    overbought: 70
+    min_confidence: 0.6
+  
+  # 网格策略配置
+  grid:
+    grid_size: 0.01                     # 网格大小（1%）
+    num_grids: 10                       # 网格数量
+    min_confidence: 0.8

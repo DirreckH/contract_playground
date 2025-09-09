@@ -1,3 +1,4 @@
+# 复制并根据实际需求生成 compose 文件
 version: '3.8'
 
 services:

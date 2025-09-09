@@ -57,17 +57,17 @@ type AccountInfo struct {
 }
 
 type PositionInfo struct {
-	Symbol           string  `json:"symbol"`
-	PositionSide     string  `json:"position_side"`
-	PositionAmt      float64 `json:"position_amt"`
-	EntryPrice       float64 `json:"entry_price"`
-	MarkPrice        float64 `json:"mark_price"`
-	UnrealizedPnL    float64 `json:"unrealized_pnl"`
-	Percentage       float64 `json:"percentage"`
-	Leverage         int     `json:"leverage"`
-	Margin           float64 `json:"margin"`
+	Symbol            string  `json:"symbol"`
+	PositionSide      string  `json:"position_side"`
+	PositionAmt       float64 `json:"position_amt"`
+	EntryPrice        float64 `json:"entry_price"`
+	MarkPrice         float64 `json:"mark_price"`
+	UnrealizedPnL     float64 `json:"unrealized_pnl"`
+	Percentage        float64 `json:"percentage"`
+	Leverage          int     `json:"leverage"`
+	Margin            float64 `json:"margin"`
 	MaintenanceMargin float64 `json:"maintenance_margin"`
-	UpdateTime       int64   `json:"update_time"`
+	UpdateTime        int64   `json:"update_time"`
 }
 
 type BalanceInfo struct {
@@ -136,25 +136,25 @@ type OrderRequest struct {
 }
 
 type OrderResponse struct {
-	OrderID          int64   `json:"order_id"`
-	Symbol           string  `json:"symbol"`
-	Status           string  `json:"status"`
-	ClientOrderID    string  `json:"client_order_id"`
-	Price            float64 `json:"price"`
-	AvgPrice         float64 `json:"avg_price"`
-	OrigQty          float64 `json:"orig_qty"`
-	ExecutedQty      float64 `json:"executed_qty"`
-	CumQuote         float64 `json:"cum_quote"`
-	TimeInForce      string  `json:"time_in_force"`
-	Type             string  `json:"type"`
-	ReduceOnly       bool    `json:"reduce_only"`
-	ClosePosition    bool    `json:"close_position"`
-	Side             string  `json:"side"`
-	PositionSide     string  `json:"position_side"`
-	StopPrice        float64 `json:"stop_price"`
-	WorkingType      string  `json:"working_type"`
-	PriceProtect     bool    `json:"price_protect"`
-	UpdateTime       int64   `json:"update_time"`
+	OrderID       int64   `json:"order_id"`
+	Symbol        string  `json:"symbol"`
+	Status        string  `json:"status"`
+	ClientOrderID string  `json:"client_order_id"`
+	Price         float64 `json:"price"`
+	AvgPrice      float64 `json:"avg_price"`
+	OrigQty       float64 `json:"orig_qty"`
+	ExecutedQty   float64 `json:"executed_qty"`
+	CumQuote      float64 `json:"cum_quote"`
+	TimeInForce   string  `json:"time_in_force"`
+	Type          string  `json:"type"`
+	ReduceOnly    bool    `json:"reduce_only"`
+	ClosePosition bool    `json:"close_position"`
+	Side          string  `json:"side"`
+	PositionSide  string  `json:"position_side"`
+	StopPrice     float64 `json:"stop_price"`
+	WorkingType   string  `json:"working_type"`
+	PriceProtect  bool    `json:"price_protect"`
+	UpdateTime    int64   `json:"update_time"`
 }
 
 type OrderInfo struct {
@@ -230,7 +230,6 @@ func NewBinanceClient(cfg config.ExchangeConfig, logger *logrus.Logger) (Client,
 
 	client := futures.NewClient(cfg.APIKey, cfg.SecretKey)
 
-	// Test connection
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
